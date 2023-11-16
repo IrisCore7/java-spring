@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Countries</title>
+    <meta content="text/html" charset="utf-8" />
+</head>
+<body>
+    <div>
+        <h1>Countries</h1>
+        <h4 th:text="'puerto: ' + ${port}"></h4>
+        <h4 th:text="'url db: ' + ${urldb}"></h4>
+    </div>
+
+    <hr />
+
+    <h4 th:text="${componente.texto}"></h4>
+
+    <hr />
+
+    <!--Lista de los countries-->
+    <div th:each="data : ${lista}">
+        <h4 th:text="${data.name}"></h4>
+    </div>
+
+    <hr />
+
+    <!--formulario que se direcciona a la ruta con los siguiente parametros-->
+    <form method="get" th:action="@{${ruta_actual}}">
+        <input type="number" name="id" th:value="${param_id}"/>
+        <input type="text" name="name" th:value="${param_name}"/>
+        <input type="submit" value="Enviar" />
+    </form>
+
+    <br/>
+
+    <!--Parametros traidos como modelos-->
+    <h4 th:text="${param_id}"></h4>
+    <h4 th:text="${param_name}"></h4>
+
+    <div th:each="data : ${lista_filtrada}">
+        <h4 th:text="${data.name}"></h4>
+    </div>
+
+    <hr />
+
+    <!--Formulario para crear nuevo countrie-->
+    <form method="post" th:action="@{${ruta_actual + '/nuevo'}}" th:object="${nuevo_countrie}">
+        <label for="id">Id:</label>
+        <input type="number" id="id" th:field="*{id}" required/>
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}" required/>
+        <input type="submit" value="Enviar"/>
+    </form>
+</body>
+
+</html>
